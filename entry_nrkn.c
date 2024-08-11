@@ -28,8 +28,8 @@ int entry(int argc, char **argv) {
 		reset_temporary_storage();
 
     draw_frame.projection = m4_make_orthographic_projection(
-      window.width * -0.5, window.width * 0.5, 
-      window.height * -0.5, window.height * 0.5, 
+      window.scaled_width * -0.5, window.scaled_width * 0.5, 
+      window.scaled_height * -0.5, window.scaled_height * 0.5, 
       -1, 10
     );
 
