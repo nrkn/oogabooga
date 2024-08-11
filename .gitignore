@@ -1,7 +1,6 @@
 
 *.raddbgi
 **/worlds
-data
 uid
 *.rdbg
 *.exe
