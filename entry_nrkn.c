@@ -23,6 +23,7 @@ typedef enum EntityArcheType {
 
 typedef struct Entity {
   bool is_valid;
+  bool is_draw;
   EntityArcheType arch;
   Vector2 pos;
   float speed;
@@ -62,11 +63,13 @@ void entity_destroy( Entity* entity ){
 void setup_rock( Entity* entity ){
   entity->arch = ARCH_rock;
   entity->sprite_id = SPRITE_rock0;
+  entity->is_draw = true;
 }
 
 void setup_tree( Entity* entity ){
   entity->arch = ARCH_tree;
   entity->sprite_id = SPRITE_tree0;
+  entity->is_draw = true;
 }
 
 Gfx_Image* load_data_image( const char* path ){
@@ -88,6 +91,10 @@ Sprite* get_sprite( SpriteId id ){
 }
 
 void draw_entity( Entity* entity ){
+  if( !entity->is_draw ){
+    return;
+  }
+
   Sprite* sprite = get_sprite(entity->sprite_id);
 
   Matrix4 xform = m4_scalar(1.0);
@@ -96,7 +103,9 @@ void draw_entity( Entity* entity ){
     m4_scalar(1.0), v3(entity->pos.x, entity->pos.y, 0)
   );
   draw_image_xform(
-    sprite->img, xform, v2(sprite->img->width, sprite->img->height), COLOR_WHITE
+    sprite->img, xform, 
+    v2(sprite->img->width, sprite->img->height), 
+    COLOR_WHITE
   );	
 }
 
@@ -139,6 +148,7 @@ int entry(int argc, char **argv) {
   player_en->arch = ARCH_player;
   player_en->sprite_id = SPRITE_player;
   player_en->speed = 50.0;
+  player_en->is_draw = true;
 
   for( int i = 0; i < 10; i++ ){
     Entity* tree_en = entity_create();
