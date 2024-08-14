@@ -1,7 +1,11 @@
 const int tile_width = 8;
 
 int world_to_tile( float world ){
-  return world / (float)tile_width;
+  if( world < 0 ){
+    return ( world / (float)tile_width ) - 1;
+  }
+
+  return ( world / (float)tile_width );
 }
 
 float tile_to_world( int tile ){
