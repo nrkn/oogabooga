@@ -87,12 +87,13 @@ Entity* entity_create(){
 
     if( !existing_entity->is_valid ){
       entity_found = existing_entity;
-      entity_found->is_valid = true;
       break;
     }
   }
 
   assert(entity_found, "eee no ents");
+
+  entity_found->is_valid = true;
 
   return entity_found;
 }
